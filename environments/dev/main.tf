@@ -21,7 +21,7 @@ module "load_balancer" {
   public_subnets    = module.vpc.public_subnets
   security_group_id = module.load_balancer.security_group_id # Now output from the ALB module
   target_group_name = "dev-pet-clinic-target-group"
-  # certificate_arn   = module.acm.certificate_arn
+  certificate_arn   = module.acm.certificate_arn
 }
 
 module "autoscaling_group" {
