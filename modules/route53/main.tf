@@ -10,4 +10,3 @@ resource "aws_route53_record" "subdomain" {
     evaluate_target_health = false
   }
 }
-

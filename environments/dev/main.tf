@@ -21,20 +21,20 @@ module "load_balancer" {
   public_subnets    = module.vpc.public_subnets
   security_group_id = module.load_balancer.security_group_id # Now output from the ALB module
   target_group_name = "dev-pet-clinic-target-group"
-  certificate_arn   = module.acm.certificate_arn
+  # certificate_arn   = module.acm.certificate_arn
 }
 
 module "autoscaling_group" {
   source               = "../../modules/asg"
   name                 = "dev-pet-clinic-asg"
-  ami_id               = "ami-0bd0388143d63326d" # Replace with your AMI ID
+  ami_id               = "ami-06f1103b8906b89a1" # Replace with your AMI ID
   instance_type        = "t2.micro"
   key_name             = "kube-demo"
   private_subnets      = module.vpc.private_subnets
   security_group_id    = module.autoscaling_group.security_group_id # Output from ASG module
   target_group_arn     = module.load_balancer.target_group_arn
   iam_instance_profile = module.autoscaling_group.iam_instance_profile # Output from ASG module
-  ecr_registry         = "588738567172.dkr.ecr.us-east-1.amazonaws.com"
+  ecr_registry         = "310655363801.dkr.ecr.us-east-1.amazonaws.com"
   ecr_repository       = "spring-petclinic-app"
   region               = "us-east-1"
   vpc_id               = module.vpc.vpc_id
@@ -66,13 +66,13 @@ module "rds" {
 module "route53" {
   source       = "../../modules/route53"
   zone_id      = data.aws_route53_zone.selected.zone_id
-  subdomain    = "petclinic-dev.vasuchallapu.click"
+  subdomain    = "petclinic-dev.agklya.com"
   alb_dns_name = module.load_balancer.alb_dns_name
   alb_zone_id  = module.load_balancer.alb_zone_id
 }
 
 module "acm" {
   source      = "../../modules/acm"
-  domain_name = "petclinic-dev.vasuchallapu.click"
+  domain_name = "petclinic-dev.agklya.com"
   zone_id     = data.aws_route53_zone.selected.zone_id
 }

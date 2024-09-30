@@ -23,7 +23,7 @@ variable "target_group_name" {
   type        = string
 }
 
-variable "certificate_arn" {
-  description = "The ACM certificate ARN for HTTPS listener"
-  type        = string
-}
+# variable "certificate_arn" {
+#   description = "The ACM certificate ARN for HTTPS listener"
+#   type        = string
+# }
